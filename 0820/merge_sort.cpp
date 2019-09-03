@@ -4,15 +4,20 @@ using namespace std;
 
 void merge(vector<int> nums, vector<int> &nums1, int low, int mid, int high) {
         int i=low, j=mid+1, k=low;
-        while(i <= mid && j <=high) {
-            nums1[k] = (nums[i]<nums[j]) ? nums[i] : nums[j];
-            i++,j++,k++;
+        cout << "merge" << '\t' << low << '\t' << mid << '\t' << high << endl;
+        for(auto num : nums1) {
+            cout << num << ' ';
         }
-        while(i<=mid) {
+        cout << endl;
+        while(i <= mid && j <= high) {
+            nums1[k] = (nums[i]<nums[j]) ? nums[i++] : nums[j++];
+            k++;
+        }
+        while(i <= mid) {
             nums1[k]=nums[i];
             i++,k++;
         }
-        while(j<=high) {
+        while(j <= high) {
             nums1[k]=nums[j];
             j++,k++;
         }
@@ -21,8 +26,8 @@ void merge(vector<int> nums, vector<int> &nums1, int low, int mid, int high) {
 
 
 void merge_sort(vector<int> nums, vector<int> &nums1, int low, int high) {
-
-    if (low == high) {
+    cout << "merge_sort " << low << ' ' << high << endl;
+    if (low == high) {  //终止条件
         nums1[low]=nums[low];
     } 
     else {
@@ -30,12 +35,19 @@ void merge_sort(vector<int> nums, vector<int> &nums1, int low, int high) {
         int mid = low + (high-low) / 2;
         merge_sort(nums, nums2, low, mid);
         merge_sort(nums, nums2, mid+1, high);
-        for(auto num : nums2) {
+        cout << "nums1 " << endl;
+        for(auto num : nums1) {
             cout << num << ' ';
         }
         cout << endl;
         merge(nums2, nums1, low, mid, high);
+        cout << "nums " << endl;
+        for(auto num : nums) {
+            cout << num << ' ';
+        }
+        cout << endl;
     }
+    cout << "merge_sort end " << low << ' ' << high << endl;
 }
 
 int main()
