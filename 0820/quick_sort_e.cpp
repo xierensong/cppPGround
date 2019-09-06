@@ -2,36 +2,42 @@
 
 using namespace std;
 
-int search_pos(vector<int> &nums, int low, int high)
+void print(vector<int> nums)
 {
-    while(low < high) {
-        while(low < high && nums[low] < nums[high]) high--;
-        int tmp=nums[low];
-        nums[low]=nums[high];
-        nums[high]=tmp;
-        while(low < high && nums[high] > nums[low]) low++;
-        tmp=nums[low];
-        nums[low]=nums[high];
-        nums[high]=tmp;
+    for(auto num : nums) {
+        cout << num << ' ';
     }
-    return low;
+    cout << endl;
 }
 
-void quick_sort(vector<int> &nums, int low, int high)
+int depart(vector<int> &nums, int i, int j)
 {
-    if(low < high) {
-        int pos = search_pos(nums, low, high);
-        quick_sort(nums, low, pos-1);
-        quick_sort(nums, pos+1, high);
+    while(i < j) {
+        int value=nums[i];
+        while( i<j && nums[j]> value) j--;
+        int tmp=nums[j];
+        nums[j]=nums[i];
+        nums[i]=tmp;
+        while (i<j && nums[i]<value) i++;
+        tmp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=tmp;       
+    }
+    return i;
+}
+
+void quick_sort(vector<int> &nums, int i, int j)
+{
+    if (i < j) {
+        int pos = depart(nums, i, j);
+        quick_sort(nums, i, pos-1);
+        quick_sort(nums, pos+1, j);
     }
 }
 
 int main()
 {
-    vector<int> nums{2,3,8,5,18,1,21,7};
-    quick_sort(nums, 0, nums.size()-1);
-    for(auto num:nums){
-        cout << num << ' ';
-    }
-    cout << endl;
+    vector<int> nums{1,3,100,20,11,9,25};
+    quick_sort(nums,0,nums.size()-1);
+    print(nums);
 }
