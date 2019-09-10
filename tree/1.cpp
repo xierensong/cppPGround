@@ -12,14 +12,15 @@ bool preOrder(vector<vector<int>> Tree, int root, int &cnt) {
                 //cout << "i " << i << endl;
             }
         }
+
         if (idxs.size()==0) {
             for(int i = 0; i<=Tree[0].size();i++) {
                 if (Tree[0][i] == root) {
                     cnt++;
                     return true;
                     //cout << "i " << i << endl;
-            }
-        }        
+                }
+            }        
         }
         else {
             cnt++;

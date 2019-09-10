@@ -71,12 +71,35 @@ void InOrder(Node* Tree)
 
 void postOrder(Node * Tree)
 {
-        
+    stack<Node*> my_stack;
+    vector<char> res;
+    if(Tree) res.insert(res.begin(), Tree->val);
+    my_stack.push(Tree);
+    while(!my_stack.empty()) {
+        Node* curr=my_stack.top();
+        while(curr) {
+            if(curr->right) res.insert(res.begin(), curr->right->val);
+            my_stack.push(curr->right);
+            curr=my_stack.top();
+        }
+        my_stack.pop();
+        if(!my_stack.empty()) {
+            curr=my_stack.top();
+            my_stack.pop();
+            if (curr->left) res.insert(res.begin(), curr->left->val);
+            my_stack.push(curr->left);
+        }
+    }
+    for(auto a : res) {
+        cout << a << ' ';
+    }
+    cout << endl;
 }
 int main()
 {
     Node * Tree;
-    createTree(Tree);
+    createTree(Tree);   //ABC  DE G  F   
     PreOrder(Tree);
     InOrder(Tree);
+    postOrder(Tree);
 }
