@@ -40,12 +40,12 @@ void BFSTraverse(unordered_map<string, unordered_map<string, double>> my_graph)
         string node = my_pair.first;
         if (!visited.count(node)) {
             visited.insert(node);
-            res.push_back(node);
-            my_queue.push(node);
+            res.push_back(node);    //访问
+            my_queue.push(node);    //入队
             while(!my_queue.empty()) {
-                node = my_queue.front();
-                my_queue.pop();
-                for(auto adjent_pair : my_graph[node]) {
+                node = my_queue.front();    
+                my_queue.pop(); //出队
+                for(auto adjent_pair : my_graph[node]) {    //取邻接点
                     string adjacent_node = adjent_pair.first;
                     if(!visited.count(adjacent_node)) {
                         visited.insert(adjacent_node);
