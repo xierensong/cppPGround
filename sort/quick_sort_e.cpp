@@ -10,34 +10,43 @@ void print(vector<int> nums)
     cout << endl;
 }
 
-int depart(vector<int> &nums, int i, int j)
+int partition(vector<int> &nums, int low, int high)
 {
-    while(i < j) {
-        int value=nums[i];
-        while( i<j && nums[j]> value) j--;
-        int tmp=nums[j];
-        nums[j]=nums[i];
-        nums[i]=tmp;
-        while (i<j && nums[i]<value) i++;
-        tmp=nums[i];
-        nums[i]=nums[j];
-        nums[j]=tmp;       
+    int val=nums[low];
+    while(low<high) 
+    {
+        while(low<high && nums[high]>val) {
+            high--;
+        }
+        int tmp=nums[high];
+        nums[high]=nums[low];
+        nums[low]=tmp;
+        while(low<high && nums[low]<val) {
+            low++;
+        }
+        tmp=nums[low];
+        nums[low]=nums[high];
+        nums[high]=tmp;
     }
-    return i;
+    return low;
+    return 0;
 }
 
-void quick_sort(vector<int> &nums, int i, int j)
+void quick_sort(vector<int> &nums, int low, int high)
 {
-    if (i < j) {
-        int pos = depart(nums, i, j);
-        quick_sort(nums, i, pos-1);
-        quick_sort(nums, pos+1, j);
+    if(low < high) {
+        int pos=partition(nums,low,high);
+        //cout << "pos " << pos << endl;
+        quick_sort(nums,low,pos-1);
+        quick_sort(nums,pos+1,high);
     }
 }
 
 int main()
 {
-    vector<int> nums{1,3,100,20,11,9,25};
+    vector<int> nums{1,10,7,20,15,11,100,75};
+    print(nums);
     quick_sort(nums,0,nums.size()-1);
     print(nums);
+    return 0;
 }

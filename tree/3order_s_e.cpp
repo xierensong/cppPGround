@@ -1,84 +1,74 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 
 using namespace std;
 
 struct Node {
     char val;
-    Node *left,*right;
-    Node(char my_val):val(my_val),left(nullptr),right(nullptr) {}
+    Node* left, *right;
+    Node(char my_val) : val(my_val), left(nullptr), right(nullptr) {};
 };
 
-void createTree(Node * &root) {
+bool preOrder(Node* tree) 
+{
+    if(tree) {
+        cout << tree->val << ' ';
+        if (preOrder(tree->left)) {
+            if(preOrder(tree->right)) {
+                return true;
+            }
+        }
+    }
+    return true;
+}
+
+bool InOrder(Node* tree)
+{
+    if(tree) {
+        if(InOrder(tree->left)) {
+            cout << tree->val << ' ';
+            if(InOrder(tree->right)) {
+                return true;
+            }
+        }
+    }
+    return true;
+}
+
+bool PostOrder(Node* tree) {
+    if(tree) {
+        if(PostOrder(tree->left)) {
+            if (PostOrder(tree->right)) {
+                cout << tree->val << " ";
+                return true;
+            }
+        }
+    }
+    return true;
+}
+
+void createTree(Node* &tree)
+{
     char ch;
     scanf("%c", &ch);
-    //cout << ch << endl;
-    if (ch==' ') {
-        root=nullptr;
+    //cout << "curr " << ch << endl;
+    if(ch==' ') {
+        tree=nullptr;
     }
     else {
-        root = new Node(ch);
-        createTree(root->left);
-        createTree(root->right);
+        tree=new Node(ch);
+        createTree(tree->left);
+        createTree(tree->right);
     }
-    return;
-}
-
-bool preOrder(Node * root) {
-    if(root) {
-        cout << root -> val << '-';
-        if (preOrder(root->left)) {
-            if (preOrder(root->right)) {
-                return true;
-            }
-        }
-    }
-    else {
-        return true;
-    }
-    return false;
-}
-
-bool inOrder(Node *root) 
-{
-    if (root) {
-        if(inOrder(root->left)) {
-            cout << root->val << '-';
-            if(inOrder(root->right)) {
-                return true;
-            }
-        }
-    }
-    else {
-        return true;
-    }
-    return false;
-}
-
-bool postOrder(Node *root) 
-{
-    if (root) {
-        if(postOrder(root->left)) {
-            if(postOrder(root->right)) {
-                cout << root->val << '-';
-                return true;
-            }
-        }
-    }
-    else {
-        return true;
-    }
-    return false;
 }
 
 int main()
 {
-    Node *root;
-    createTree(root);  //ABC  DE G  F   
-    preOrder(root);
+    Node* tree;  //ABC  DE G  F   
+    createTree(tree);
+    preOrder(tree);
     cout << endl;
-    inOrder(root);
+    InOrder(tree);
     cout << endl;
-    postOrder(root);
+    PostOrder(tree);
     cout << endl;
-    return 0;
 }
