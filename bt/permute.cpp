@@ -4,7 +4,8 @@ using namespace std;
 
 void permute(string &my_str, int i, vector<string> &results)
 {
-    if(i=my_str.size()-1) {
+    //cout << "i " << i << endl;
+    if(i==my_str.size()-1) {
         results.push_back(my_str);
     }
     else {
@@ -21,8 +22,10 @@ int main()
     string my_str="abcdef";
     vector<string> results;
     permute(my_str, 0, results);
+
     for(auto result:results) {
-        cout << result << ' ';
+        cout << result << endl;
     }
     cout << endl;
+        cout << results.size() << endl;
 }
